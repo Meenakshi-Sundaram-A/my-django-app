@@ -7,7 +7,6 @@ from . models import FriendsGroup,Friend
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True, help_text="Required. Enter a valid email address.")
-
     class Meta:
         model = User
         fields = ("username", "email", "password1", "password2")

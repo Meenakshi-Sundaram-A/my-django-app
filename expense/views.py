@@ -1,8 +1,7 @@
-from django.shortcuts import render,redirect,get_object_or_404, HttpResponse
+from django.shortcuts import render,redirect,get_object_or_404
 from .forms import ExpenseForm
 from . models import ExpenseDb,ExpenseSplit,User
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
 from users.models import FriendsGroup
 
 @login_required

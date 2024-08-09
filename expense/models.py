@@ -8,7 +8,6 @@ SPLIT_CHOICE = (
     ('custom','Custom'),
     ('percentage','Percentage')
 )
-# Create your models here.
 class ExpenseDb(models.Model):
     amount = models.IntegerField()
     description = models.TextField()

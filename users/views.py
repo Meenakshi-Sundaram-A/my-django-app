@@ -4,13 +4,18 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from .forms import CustomUserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib.auth.decorators import login_required
 from . models import FriendsGroup, Friend
 from . forms import SplitGroup
 from django.db.models import Q
 
-
 # Create your views here.
+class CustomLoginView(LoginView):
+    template_name = 'registration/login.html'
+    success_url = reverse_lazy('home') 
+class CustomLogoutView(LogoutView):
+    next_page = reverse_lazy('login')
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy("login")
@@ -92,5 +97,5 @@ def deleteGroup(request,group_id):
         return redirect("display_groups")
     if request.method == "POST":
         group.delete()
-        return redirect("display_groups")  # Redirect to a list of groups or another page
+        return redirect("display_groups")
     return render(request, 'confirmdelete.html', {"group": group})

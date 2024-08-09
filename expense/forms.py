@@ -1,8 +1,6 @@
 from django import forms
-from . models import ExpenseDb, FriendsGroup , SPLIT_CHOICE
-from django.contrib.auth.models import User
+from . models import ExpenseDb, SPLIT_CHOICE
 from django import forms
-from django.db.models import Q
 
 class ExpenseForm(forms.ModelForm):
 
