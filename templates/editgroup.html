@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    label{
+      display: flex;
+    }
+  </style>
+<div class="container my-5">
+    <h2 class="mb-4 text-center">Edit Group</h2>
+    
+    <div class="card mb-4 border border-secondary">
+        <div class="card-header bg-dark text-white">
+            <h3>{{ group }}</h3>
+        </div>
+        <div class="card-body">
+            <h4 class="mb-4">Current Friends in the Group:</h4>
+            <ul class="list-group mb-4">
+                {% for friend in friends %}
+                <li class="list-group-item">{{ friend.username }}</li>
+                {% empty %}
+                <li class="list-group-item">No friends in this group.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="card border border-secondary">
+        <div class="card-header bg-dark text-white">
+            <h4>Edit Group Details</h4>
+        </div>
+        <div class="card-body">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="{{ form.group_name.id_for_label }}" class="form-label">Group Name</label>
+                    {{ form.group_name }}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ form.friends.id_for_label }}" class="form-label">Select Friends</label>
+                    {{ form.friends }}
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

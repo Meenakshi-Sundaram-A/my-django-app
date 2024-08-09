@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">Search Friend</h2>
+
+    <form method="post" class="mb-4">
+        {% csrf_token %}
+        <div class="input-group">
+            <input type="text" name="search_query" value="{{ request.POST.search_query }}" class="form-control" placeholder="Enter friend name">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+
+    {% if users %}
+    <div class="list-group">
+        {% for user in users %}
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+            {{ user.username }}
+            <form action="{% url 'add_friend' user.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success btn-sm">Add</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-warning text-center mt-3" role="alert">
+        No users found.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

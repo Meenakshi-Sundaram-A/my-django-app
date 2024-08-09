@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<div class="container-fluid bg-danger min-vh-100">
+    <div class="row justify-content-center align-items-center min-vh-100">
+        <div class="col-md-6 col-lg-4 col-xl-3">
+            <div class="card shadow-lg rounded-lg border-0 bg-white">
+                <div class="card-body p-4">
+                    <h2 class="text-center mb-4">Sign Up</h2>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
+                            <input type="text" name="username" id="{{ form.username.id_for_label }}" class="form-control" value="{{ form.username.value|default:'' }}" placeholder="Enter Username">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
+                            <input type="email" name="email" id="{{ form.email.id_for_label }}" class="form-control" value="{{ form.email.value|default:'' }}" placeholder="Enter Email ID">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.password1.id_for_label }}" class="form-label">Password</label>
+                            <input type="password" name="password1" id="{{ form.password1.id_for_label }}" class="form-control" value="{{ form.password1.value|default:'' }}" placeholder="Enter Password">
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.password2.id_for_label }}" class="form-label">Confirm Password</label>
+                            <input type="password" name="password2" id="{{ form.password2.id_for_label }}" class="form-control" value="{{ form.password2.value|default:'' }}" placeholder="Re-Enter Password">
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-dark btn-lg">Sign Up</button>
+                        </div>
+                    </form>
+                    
+                    <div class="text-center mt-3">
+                        <p class="text-muted mb-0">Already have an account?</p>
+                        <a href="{% url 'login' %}" class="btn btn-link text-primary">Log In</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

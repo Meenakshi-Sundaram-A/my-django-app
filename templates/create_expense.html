@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4 my-5">
+    <h2 class="mb-4">Create or Edit Expense</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.as_p }}
+        </div>
+
+        <div id="custom-fields" class="mb-3" style="display: none;">
+            <h3>Custom Splits</h3>
+            {% for member in group.friends.all %}
+            <div class="mb-2">
+                <label class="form-label">{{ member.username }}:</label>
+                <input type="number" name="split_amount_{{ member.id }}" class="form-control" placeholder="Enter Amount">
+            </div>
+            {% endfor %}
+        </div>
+
+        <div id="percentage-fields" class="mb-3" style="display:none;">
+            <h3>Percentage Splits</h3>
+            {% for member in group.friends.all %}
+            <div class="mb-2">
+                <label class="form-label">{{ member.username }}:</label>
+                <input type="number" name="split_percentage_{{ member.id }}" class="form-control" placeholder="Enter Percentage">
+            </div>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Expense</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const splitTypeSelect = document.querySelector('#id_split_type');
+        const customFields = document.querySelector('#custom-fields');
+        const percentageFields = document.querySelector('#percentage-fields');
+
+        function toggleCustomFields() {
+            if (splitTypeSelect.value === 'custom') {
+                customFields.style.display = 'block';
+                percentageFields.style.display = 'none';
+            } 
+            else if (splitTypeSelect.value === 'percentage'){
+                customFields.style.display = 'none';
+                percentageFields.style.display = 'block';
+            }
+            else {
+                customFields.style.display = 'none';
+                percentageFields.style.display = 'none';
+            }
+        }                                                       
+        toggleCustomFields();
+        splitTypeSelect.addEventListener('change', toggleCustomFields);
+    });
+</script>
+{% endblock %}

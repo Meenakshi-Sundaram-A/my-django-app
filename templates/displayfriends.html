@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">Friends List</h2>
+
+    {% if friends %}
+    <div class="row">
+        {% for friend in friends %}
+        <div class="col-md-4 mb-4">
+            <div class="card bg-light shadow-sm rounded">
+                <div class="card-body bg-info">
+                    <h5 class="card-title text-center font-weight-bold">{{ friend.friends }}</h5>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-warning text-center" role="alert">
+        No friends to display.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

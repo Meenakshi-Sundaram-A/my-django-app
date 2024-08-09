@@ -1,0 +1,63 @@
+<!-- templates/home.html -->
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    {% if user.is_authenticated %}
+    <h3 class="mb-4">Welcome, {{ user.username }}!</h3>
+    
+    <div class="row">
+        <div class="col-md-3 mb-3 d-flex">
+            <div class="card bg-primary text-white flex-fill">
+                <div class="card-body">
+                    <h5 class="card-title">Add Friend</h5>
+                    <p class="card-text">Search for friends to add to your network.</p>
+                    <a href="{% url 'search_friends' %}" class="btn btn-light">Go</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3 d-flex">
+            <div class="card bg-secondary text-white flex-fill">
+                <div class="card-body">
+                    <h5 class="card-title">Display Friends</h5>
+                    <p class="card-text">View your list of friends.</p>
+                    <a href="{% url 'display_friends' %}" class="btn btn-light">Go</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3 d-flex">
+            <div class="card bg-success text-white flex-fill">
+                <div class="card-body">
+                    <h5 class="card-title">Create Group</h5>
+                    <p class="card-text">Create a new group with your friends.</p>
+                    <a href="{% url 'create_group' %}" class="btn btn-light">Go</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3 d-flex">
+            <div class="card bg-info text-white flex-fill">
+                <div class="card-body">
+                    <h5 class="card-title">Show Groups</h5>
+                    <p class="card-text">View all your groups.</p>
+                    <a href="{% url 'display_groups' %}" class="btn btn-light">Go</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3 d-flex">
+            <div class="card bg-warning text-dark flex-fill">
+                <div class="card-body">
+                    <h5 class="card-title">Show Expenses</h5>
+                    <p class="card-text">View and manage your expenses.</p>
+                    <a href="{% url 'display_expenses' %}" class="btn btn-light">Go</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <p class="text-danger">You are not logged in</p>
+    <a href="{% url 'login' %}" class="btn btn-link">Log In</a>
+    {% endif %}
+</div>
+{% endblock %}

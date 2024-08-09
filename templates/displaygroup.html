@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">List of Groups</h2>
+
+    {% if groups %}
+    <div class="list-group">
+        {% for group in groups %}
+        <div class="list-group-item d-flex flex-column bg-light border border-light rounded shadow p-3 my-2 bg-white rounded">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="font-weight-bold">{{ group }}</span>
+                <div class="btn-group" role="group">
+                    {% if request.user == group.creator or request.user in group.friends.all %}
+                    <a href="#" class="btn btn-info btn-sm mx-1 rounded-circle" title="View Group" data-bs-toggle="collapse" data-bs-target="#collapse-{{ group.id }}" aria-expanded="{% if view_group_id == group.id|stringformat:"s" %}true{% else %}false{% endif %}" aria-controls="collapse-{{ group.id }}">👁️</a>
+                    <a href="{% url 'edit_group' group.id %}" class="btn btn-warning btn-sm mx-1 rounded-circle" title="Edit Group">📝</a>
+                    {% if group.creator == request.user %}
+                    <a href="{% url 'delete_group' group.id %}" class="btn btn-danger btn-sm mx-1 rounded-circle" title="Delete Group">🗑️</a>
+                    {% endif %}
+                    <a href="{% url 'create_expense' group.id %}" class="btn btn-dark btn-sm mx-1 rounded-circle" title="Create Expense">💸</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="collapse {% if view_group_id == group.id|stringformat:"s" %}show{% endif %}" id="collapse-{{ group.id }}">
+                <ul class="list-group mt-2 ">
+                    {% for friend in group.friends.all %}
+                    <li class="list-group-item">{{ friend }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <br>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-warning" role="alert">
+        No groups found!
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}
